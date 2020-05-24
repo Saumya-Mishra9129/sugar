@@ -790,19 +790,20 @@ class Neighborhood(GObject.GObject):
         raise RuntimeError(error)
 
     def _connect_to_account(self, account):
-        account.connect('buddy-added', self.__buddy_added_cb)
-        account.connect('buddy-updated', self.__buddy_updated_cb)
-        account.connect('buddy-removed', self.__buddy_removed_cb)
-        account.connect('buddy-joined-activity',
+        self.account = account
+        self.account.connect('buddy-added', self.__buddy_added_cb)
+        self.account.connect('buddy-updated', self.__buddy_updated_cb)
+        self.account.connect('buddy-removed', self.__buddy_removed_cb)
+        self.account.connect('buddy-joined-activity',
                         self.__buddy_joined_activity_cb)
-        account.connect('buddy-left-activity', self.__buddy_left_activity_cb)
-        account.connect('activity-added', self.__activity_added_cb)
-        account.connect('activity-updated', self.__activity_updated_cb)
-        account.connect('activity-removed', self.__activity_removed_cb)
-        account.connect('current-activity-updated',
+        self.account.connect('buddy-left-activity', self.__buddy_left_activity_cb)
+        self.account.connect('activity-added', self.__activity_added_cb)
+        self.account.connect('activity-updated', self.__activity_updated_cb)
+        self.account.connect('activity-removed', self.__activity_removed_cb)
+        self.account.connect('current-activity-updated',
                         self.__current_activity_updated_cb)
-        account.connect('connected', self.__account_connected_cb)
-        account.connect('disconnected', self.__account_disconnected_cb)
+        self.account.connect('connected', self.__account_connected_cb)
+        self.account.connect('disconnected', self.__account_disconnected_cb)
 
     def __account_connected_cb(self, account):
         logging.debug('__account_connected_cb %s', account.object_path)
