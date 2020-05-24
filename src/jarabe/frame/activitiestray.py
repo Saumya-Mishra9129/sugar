@@ -411,7 +411,7 @@ class BaseTransferButton(ToolButton):
         ToolButton.__init__(self)
 
         self.file_transfer = file_transfer
-        file_transfer.connect('notify::state', self.__notify_state_cb)
+        self.file_transfer.connect('notify::state', self.__notify_state_cb)
 
         icon = Icon()
         self.props.icon_widget = icon
@@ -452,11 +452,11 @@ class IncomingTransferButton(BaseTransferButton):
 
     def __init__(self, file_transfer):
         BaseTransferButton.__init__(self, file_transfer)
-
+        self.file_transfer=file_transfer
         self._ds_object = datastore.create()
 
-        file_transfer.connect('notify::state', self.__notify_state_cb)
-        file_transfer.connect('notify::transferred-bytes',
+        self.filetransfer.connect('notify::state', self.__notify_state_cb)
+        self.file_transfer.connect('notify::transferred-bytes',
                               self.__notify_transferred_bytes_cb)
 
         icons = Gio.content_type_get_icon(file_transfer.mime_type).props.names
