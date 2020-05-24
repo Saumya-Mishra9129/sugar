@@ -701,7 +701,7 @@ class AccessPoint(GObject.GObject):
         else:
             fl |= 1 << 6
 
-        hashstr = str(fl) + '@' + self.ssid.decode()
+        hashstr = str(fl) + '@' + self.ssid
         return hash(hashstr)
 
     def _update_properties(self, properties):
